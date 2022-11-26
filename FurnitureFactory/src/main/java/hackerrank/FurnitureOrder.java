@@ -4,39 +4,30 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class FurnitureOrder implements FurnitureOrderInterface {
-    /**
-     * TODO: Create a map of Furniture items to order quantities
-     */
-    private final HashMap<Furniture, Integer> furnitures;
+    
+	private final HashMap<Furniture, Integer> furnitures;
 
     /**
      * Initialize a new mapping of Furniture types to order quantities.
      */
-    FurnitureOrder() 
-    {
+    FurnitureOrder() {
         furnitures = new HashMap<Furniture, Integer>();
     }
 
-    public void addToOrder(final Furniture type, final int furnitureCount) 
-    {
-       Integer count = 0;
-        if(furnitures.containsKey(type)) 
-        {
+    public void addToOrder(final Furniture type, final int furnitureCount) {
+        Integer count = 0;
+        if(furnitures.containsKey(type)) {
             count = furnitures.get(type);
         }
         furnitures.put(type, count + furnitureCount);
     }
 
-    public HashMap<Furniture, Integer> getOrderedFurniture() 
-    {
+    public HashMap<Furniture, Integer> getOrderedFurniture() {
         return new HashMap<Furniture, Integer>(furnitures);
-        return null;
     }
 
-    public float getTotalOrderCost() 
-    {
-        if(!furnitures.isEmpty()) 
-        {
+    public float getTotalOrderCost() {
+        if(!furnitures.isEmpty()) {
         	return furnitures.entrySet().stream()
         			.map(f -> f.getKey().cost() * f.getValue())
         			.collect(Collectors.toList())
@@ -44,36 +35,29 @@ public class FurnitureOrder implements FurnitureOrderInterface {
         			.reduce(Float::sum)
         			.get();
         }
-        return -1.0f;
+        return 0.0f;
     }
 
-    public int getTypeCount(Furniture type) 
-    {
-        if(furnitures.containsKey(type)) 
-        {
+    public int getTypeCount(Furniture type) {
+        if(furnitures.containsKey(type)) {
         	return furnitures.get(type);
         }
-        return -1;
+        return 0;
     }
 
-    public float getTypeCost(Furniture type) 
-    {
-        if(furnitures.containsKey(type)) 
-        {
+    public float getTypeCost(Furniture type) {
+    	if(furnitures.containsKey(type)) {
         	return furnitures.get(type) * type.cost();
         }
-        
-        return -1.0f;
+        return 0.0f;
     }
 
-    public int getTotalOrderQuantity() 
-    {
-        if(!furnitures.isEmpty()) 
-        {
+    public int getTotalOrderQuantity() {
+    	if(!furnitures.isEmpty()) {
         	return furnitures.values().stream()
         			.reduce(Integer::sum)
         			.get();
         }
-        return -1;
+        return 0;
     }
 }
